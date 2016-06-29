@@ -17,22 +17,28 @@ Kuzzle.prototype.loginOauthPopup = function(strategy, options, cb) {
 
   this.login(strategy, (err, res) => {
     oauthWindow = window.open(res.headers.Location, 'kuzzleOauthPopup', windowOption);
-
-    var interval = setInterval(() => {
-      var c = /code=([a-zA-Z0-9\-_\/]+)/.exec(oauthWindow.location.search);
-      console.log(c);
-      if (c) {
-        oauthWindow.close();
-        clearInterval(interval);
-        this.query({controller: 'auth', action: 'login'}, {body: {strategy, code: c[1]}}, (err, res) => {
-          if (err) {
-            cb(err);
-            return;
-          }
-          this.setJwtToken(res.result.jwt);
-          cb(undefined, res.result);
-        });
-      }
-    }, 1000);
+    if (oauthWindow === undefined) {
+      throw new Error('Cannot open window. Make sure it isn\'t blocked by your browser.');
+    }
+    sendCodeToKuzzle(strategy, oauthWindow, cb, this);
   });
 };
+
+function sendCodeToKuzzle(strategy, oauthWindow, cb, kuzzle) {
+  setTimeout(() => {
+    var c = /code=([a-zA-Z0-9\-_\/]+)/.exec(oauthWindow.location.search);
+    if (c) {
+      oauthWindow.close();
+      kuzzle.query({controller: 'auth', action: 'login'}, {body: {strategy, code: c[1]}}, (err, res) => {
+        if (err) {
+          cb(err);
+          return;
+        }
+        kuzzle.setJwtToken(res.result.jwt);
+        cb(undefined, res.result);
+      });
+    } else {
+      sendCodeToKuzzle(strategy, oauthWindow, cb);
+    }
+  }, 500);
+}
