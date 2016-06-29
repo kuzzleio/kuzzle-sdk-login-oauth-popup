@@ -46,7 +46,7 @@ $ bower install kuzzle-sdk-login-oauth-popup
 # Usage
 
 ```js
-var kuzzle = new Kuzzle('http://localhhost:7512');
+var kuzzle = new Kuzzle('http://localhost:7512');
 kuzzle.loginOauthPopup('facebook', function(err, res) {
     // res should contain the _id and jwt token of the logged user
 });
