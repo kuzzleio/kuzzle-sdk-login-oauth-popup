@@ -1,0 +1,14 @@
+{
+  "name": "kuzzle-sdk-login-oauth-popup",
+  "version": "1.0.0",
+  "description": "",
+  "author": "The Kuzzle Team <support@kuzzle.io>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kuzzleio/kuzzle-sdk-login-oauth-popup.git"
+  },
+  "scripts": {
+    "test": "istanbul cover _mocha  -- --recursive "
+  },
+  "main": "index.js"
+}
