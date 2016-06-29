@@ -8,7 +8,12 @@
     "url": "https://github.com/kuzzleio/kuzzle-sdk-login-oauth-popup.git"
   },
   "scripts": {
-    "test": "istanbul cover _mocha  -- --recursive "
+    "test": "grunt && mocha"
   },
-  "main": "index.js"
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "_npmUser": {
+    "name": "kuzzle",
+    "email": "support@kuzzle.io"
+  }
 }
