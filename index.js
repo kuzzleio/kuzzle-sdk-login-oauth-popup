@@ -2,7 +2,7 @@ if (typeof Kuzzle === 'undefined') {
   throw new Error('kuzzle-sdk-login-oauth-popup needs the Kuzzle Javascript SDK in order to be working.');
 }
 
-if (!window) {
+if (typeof window === 'undefined') {
   throw new Error('kuzzle-sdk-login-oauth-popup only work in a browser.');
 }
 
@@ -14,7 +14,6 @@ Kuzzle.prototype.loginOauthPopup = function(strategy, options, cb) {
   if (!cb && typeof options === 'function') {
     cb = options;
   }
-
   this.login(strategy, (err, res) => {
     oauthWindow = window.open(res.headers.Location, 'kuzzleOauthPopup', windowOption);
     if (oauthWindow === undefined) {

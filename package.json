@@ -15,5 +15,15 @@
   "_npmUser": {
     "name": "kuzzle",
     "email": "support@kuzzle.io"
+  },
+  "devDependencies": {
+    "eslint": "^2.13.1",
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "gruntify-eslint": "^2.0.0",
+    "mocha": "^2.5.3",
+    "rewire": "^2.5.1",
+    "should": "^9.0.2",
+    "sinon": "^1.17.4"
   }
 }
