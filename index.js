@@ -37,7 +37,7 @@ function sendCodeToKuzzle(strategy, oauthWindow, cb, kuzzle) {
         cb(undefined, res.result);
       });
     } else {
-      sendCodeToKuzzle(strategy, oauthWindow, cb);
+      sendCodeToKuzzle(strategy, oauthWindow, cb, kuzzle);
     }
   }, 500);
 }
