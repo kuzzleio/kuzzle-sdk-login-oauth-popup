@@ -24,12 +24,15 @@ Kuzzle.prototype.loginOauthPopup = function(strategy, options, cb) {
 };
 
 function sendCodeToKuzzle(strategy, oauthWindow, cb, kuzzle) {
+  var
+    code;
+
   setTimeout(() => {
     try {
-      var c = /code=([a-zA-Z0-9\-_\/]+)/.exec(oauthWindow.location.search);
-    } catch (ex) {}
+      code = /code=([a-zA-Z0-9\-_\/]+)/.exec(oauthWindow.location.search);
+    } catch (ex) {} // eslint-disable-line no-empty
 
-    if (c) {
+    if (code) {
       oauthWindow.close();
       kuzzle.query({controller: 'auth', action: 'login'}, {body: {strategy, code: c[1]}}, (err, res) => {
         if (err) {
