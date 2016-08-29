@@ -25,7 +25,10 @@ Kuzzle.prototype.loginOauthPopup = function(strategy, options, cb) {
 
 function sendCodeToKuzzle(strategy, oauthWindow, cb, kuzzle) {
   setTimeout(() => {
-    var c = /code=([a-zA-Z0-9\-_\/]+)/.exec(oauthWindow.location.search);
+    try {
+      var c = /code=([a-zA-Z0-9\-_\/]+)/.exec(oauthWindow.location.search);
+    } catch (ex) {}
+
     if (c) {
       oauthWindow.close();
       kuzzle.query({controller: 'auth', action: 'login'}, {body: {strategy, code: c[1]}}, (err, res) => {
