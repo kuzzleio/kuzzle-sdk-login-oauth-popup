@@ -16,7 +16,7 @@ Kuzzle.prototype.loginOauthPopup = function(strategy, options, cb) {
   }
   this.login(strategy, (err, res) => {
     if (err) {
-      throw new Error(err.message)
+      throw new Error(err.message);
     }
     oauthWindow = window.open(res.headers.Location, 'kuzzleOauthPopup', windowOption);
     if (oauthWindow === undefined) {
