@@ -2,7 +2,6 @@ var
   should = require('should'),
   sinon = require('sinon'),
   clock = sinon.useFakeTimers(),
-  path = require('path'),
   rewire = require('rewire'),
   sandbox;
 
@@ -20,7 +19,7 @@ describe('Test loginOauthPopup', function() {
   });
 
   it('should throw an error because Kuzzle sdk is not included in the project', function() {
-    (function(){
+    (function() {
       require('..');
     }).should.throw('kuzzle-sdk-login-oauth-popup needs the Kuzzle Javascript SDK in order to be working.');
   });
@@ -30,6 +29,23 @@ describe('Test loginOauthPopup', function() {
     (function() {
       require('..');
     }).should.throw('kuzzle-sdk-login-oauth-popup only work in a browser.');
+  });
+
+  it('should throw an error when kuzzle returns an error', function() {
+    var errorMessage = 'an error message';
+    Kuzzle = function() {
+      this.login = function(strategy, cb) {
+        cb(new Error(errorMessage), undefined);
+      };
+      this.query = sandbox.stub();
+    };
+    window = sandbox.stub();
+    window.open = sandbox.stub().returns(undefined);
+    rewire('..');
+    kuzzle = new Kuzzle();
+    (function() {
+      kuzzle.loginOauthPopup('strategy');
+    }).should.throw(errorMessage);
   });
 
   it('should throw an error because the popup cannot be open', function() {
