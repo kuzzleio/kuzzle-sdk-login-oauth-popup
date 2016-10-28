@@ -1,7 +1,5 @@
 [![Build Status](https://travis-ci.org/kuzzleio/kuzzle-sdk-login-oauth-popup.svg?branch=master)](https://travis-ci.org/kuzzleio/kuzzle-sdk-login-oauth-popup)
 
-<p align=center> ![logo](http://kuzzle.io/guide/images/kuzzle.svg)
-
 # Description
 
 kuzzle-sdk-login-oauth-popup is an extension for the [Kuzzle javascript-sdk](https://github.com/kuzzleio/sdk-javascript).
