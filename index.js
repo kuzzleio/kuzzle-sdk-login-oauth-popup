@@ -37,7 +37,7 @@ function sendCodeToKuzzle(strategy, oauthWindow, cb, kuzzle) {
 
     if (code) {
       oauthWindow.close();
-      kuzzle.query({controller: 'auth', action: 'login'}, {body: {strategy, code: code[1]}}, (err, res) => {
+	kuzzle.query({controller: 'auth', action: 'login'}, {strategy: strategy, code: code[1]}, (err, res) => {
         if (err) {
           cb(err);
           return;
